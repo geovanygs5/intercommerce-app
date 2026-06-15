@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react';
-import { ProductCard } from '../components/product/ProductCard';
+import { ProductCard } from '../components/product/productcard';
 import { CartDrawer } from '../components/cart/CartDrawer';
 import { useCartStore } from '../store/cartStore';
 import type { Product } from '../types';

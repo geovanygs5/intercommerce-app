@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useProducts, useFilters } from '../hooks/useProducts';
 import { useCartStore } from '../store/cartStore';
-import { ProductGrid } from '../components/product/ProductGrid';
+import { ProductGrid } from '../components/product/productgrid';
 import { FilterBar } from '../components/product/FilterBar';
 import { Toast, useToast } from '../components/ui/Toast';
 import { ErrorBoundary } from '../components/ui/ErrorBoundary';
