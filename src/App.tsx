@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Navbar } from './components/ui/NavBar';
+import { Navbar } from './components/ui/Navbar';
 import { CartDrawer } from './components/cart/CartDrawer';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
