@@ -2,13 +2,13 @@ import type { Product } from '../../types';
 import { ProductCard } from './productcard';
 import { ProductCardSkeleton } from '../ui/Skeleton';
 
-interface ProductgridProps {
+interface ProductGridProps {
   products: Product[];
   isLoading: boolean;
   onAddToCart: (product: Product) => void;
 }
 
-export const Productgrid = ({ products, isLoading, onAddToCart }: ProductgridProps) => {
+export const ProductGrid = ({ products, isLoading, onAddToCart }: ProductGridProps) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
