@@ -1,5 +1,5 @@
 import type { Product } from '../../types';
-import { ProductCard } from './productcard';
+import { ProductCard } from './productCard';
 import { ProductCardSkeleton } from '../ui/Skeleton';
 
 interface ProductGridProps {
