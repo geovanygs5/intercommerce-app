@@ -97,3 +97,54 @@ Al abrir el drawer, el producto aparezca en la lista
 El total calculado coincida con el precio × cantidad
 
 No se testea el fetch real (eso sería E2E), sino que se mockea la API y se verifica que el flujo de datos funciona.
+
+
+# Pregrntas de profundidad tecnica
+
+### 1. Hydration/Caché en Next.js (SSR)
+
+1. Hydration/Caché en Next.js (SSR)
+En Next.js usaría getServerSideProps o React Server Components para pre-fetching. Con TanStack Query se usa dehydrate/HydrationBoundary — el servidor serializa el caché y el cliente lo rehidrata sin refetch innecesario:
+
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
+import { fetchProducts } from '@/services/products'
+
+export default async function ProductsPage() {
+  const queryClient = new QueryClient()
+  
+  await queryClient.prefetchQuery({
+    queryKey: ['products'],
+    queryFn: fetchProducts
+  })
+  
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ProductsClient />
+    </HydrationBoundary>
+  )
+}
+
+2. Seguridad XSS
+Nunca usaría dangerouslySetInnerHTML directamente. Sanitizaría con DOMPurify antes de renderizar cualquier HTML de la API:
+
+import DOMPurify from 'dompurify';
+
+const safeHTML = DOMPurify.sanitize(product.description);
+<div dangerouslySetInnerHTML={{ __html: safeHTML }} />
+
+3. Escalabilidad del carrito multi-tienda
+Refactorizaría el store para soportar múltiples instancias usando un factory pattern con Zustand:
+
+const createCartStore = (storeId: string) => create(
+  persist(
+    (set, get) => ({ ...cartLogic }),
+    { name: `cart-${storeId}` }
+  )
+);
+
+// Una instancia por tienda
+const useCartStoreA = createCartStore('tienda-a');
+const useCartStoreB = createCartStore('tienda-b');
+
+Cada tienda tiene su propio caché en LocalStorage y su propio estado aislado.
+
